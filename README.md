@@ -1,6 +1,6 @@
 ## Main project idea
 
-Show the difference between ES5 and ES6 syntax with real life example not typical academic dog barking style nad method.
+The project aim is to show the difference between ES5 and ES6 syntax with real life example not typical academic dog barking style nad method.
 
 Project has two branches - ES5 and ES6.
 
