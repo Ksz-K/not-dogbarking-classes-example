@@ -1,0 +1,45 @@
+.success,
+.error,
+.neutral {
+    color: #fff;
+    padding: 5px;
+    margin: 5px, 0, 15px, 0;
+}
+
+.success {
+    background-color: #02e102;
+}
+
+.error {
+    background-color: #e2001a;
+}
+
+.neutral {
+    background-color: #abc;
+}
+
+.mb-2 {
+    margin-bottom: 1rem;
+}
+form div label {
+    position: absolute;
+    top: 0.625rem;
+    left: 1.25rem;
+    pointer-events: none;
+    color: #8a8a8a;
+    font-size: 1.5rem;
+    transition: transform 777ms ease-out, font-size 888ms ease-out;
+}
+
+form div {
+    position: relative;
+}
+
+input:focus ~ label {
+    top: 0.4375rem;
+    font-size: 0.7rem;
+}
+
+input:focus {
+    outline: none;
+}

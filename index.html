@@ -12,7 +12,44 @@
 </head>
 
 <body>
+    <div class="container">
+        <h1>Dodaj film</h1>
+        <form id="film-form">
+            <div>
+                <input type="text" id="title" class="u-full-width">
+                <label for="title">
+                    Tytuł
+                </label>
+            </div>
+            <div>
+                <input type="text" id="director" class="u-full-width">
+                <label for="director">
+                    Reżyser
+                </label>
+            </div>
+            <div>
+                <input type="text" id="description" class="u-full-width">
+                <label for="description">
+                    Krótki opis
+                </label>
+            </div>
+            <input type="submit" value="Dodaj" class="u-full-width">
+        </form>
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>Tytuł</th>
+                    <th>Reżyser</th>
+                    <th>Opis</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="film-list">
+            </tbody>
+        </table>
 
+    </div>
+    <script src="./app.js"></script>
 </body>
 
 </html>
