@@ -12,6 +12,10 @@ class UI {
     const list = document.getElementById("film-list");
     //Create tr element
     const row = document.createElement("tr");
+    const att = document.createAttribute("data-uid");
+    att.value = film.uid;
+    row.setAttributeNode(att);
+
     //Insert cols
     row.innerHTML = `
         <td>${film.title}</td>
@@ -47,6 +51,7 @@ class UI {
       target.parentElement.parentElement.remove();
     }
   }
+
   clearFields() {
     title.value = "";
     director.value = "";
@@ -56,6 +61,45 @@ class UI {
     });
   }
 }
+
+//Local Storage Class
+class Store {
+  static getFilms() {
+    let films;
+    if (localStorage.getItem("films") === null) {
+      films = [];
+    } else {
+      films = JSON.parse(localStorage.getItem("films"));
+    }
+    return films;
+  }
+  static displayFilms() {
+    const films = Store.getFilms();
+    films.forEach((film) => {
+      const ui = new UI();
+      //Add film to UI
+      ui.addFilmToList(film);
+    });
+  }
+  static addFilm(film) {
+    const films = Store.getFilms();
+    films.push(film);
+    localStorage.setItem("films", JSON.stringify(films));
+  }
+  static removeFilm(uid) {
+    const films = Store.getFilms();
+
+    films.forEach((film, index) => {
+      if (film.uid === uid * 1) {
+        films.splice(index, 1);
+      }
+    });
+    localStorage.setItem("films", JSON.stringify(films));
+  }
+}
+
+//DOM Load Event
+document.addEventListener("DOMContentLoaded", Store.displayFilms);
 
 //Event Listeners
 const title = document.getElementById("title");
@@ -88,6 +132,8 @@ document.getElementById("film-form").addEventListener("submit", function (e) {
   } else {
     //Add film to list
     ui.addFilmToList(film);
+    //Add to LocalStorage
+    Store.addFilm(film);
 
     //Show alert
     ui.showAlert("Film dodano do kolekcji", "success");
@@ -103,6 +149,9 @@ document.getElementById("film-list").addEventListener("click", function (e) {
 
   e.preventDefault();
   ui.deleteFilm(e.target);
+  Store.removeFilm(
+    e.target.parentElement.parentElement.getAttribute("data-uid")
+  );
 
   //Show alert
   ui.showAlert("Film usunięto z kolekcji", "neutral");
