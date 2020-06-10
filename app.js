@@ -1,64 +1,61 @@
-//Film constructor
-function Film(title, director, description) {
-  (this.title = title),
-    (this.director = director),
-    (this.description = description),
-    (this.uid = Date.now());
+class Film {
+  constructor(title, director, description) {
+    this.title = title;
+    this.director = director;
+    this.description = description;
+    this.uid = Date.now();
+  }
 }
 
-//UI constructor
-function UI() {}
-
-UI.prototype.addFilmToList = function (film) {
-  const list = document.getElementById("film-list");
-  //Create tr element
-  const row = document.createElement("tr");
-  //Insert cols
-  row.innerHTML = `
-  <td>${film.title}</td>
-  <td>${film.director}</td>
-  <td>${film.description}</td>
-  <td><a href class="delete">X</a></td>
-  `;
-  list.appendChild(row);
-};
-
-//Delete film
-UI.prototype.deleteFilm = function (target) {
-  if (target.className === "delete") {
-    target.parentElement.parentElement.remove();
+class UI {
+  addFilmToList(film) {
+    const list = document.getElementById("film-list");
+    //Create tr element
+    const row = document.createElement("tr");
+    //Insert cols
+    row.innerHTML = `
+        <td>${film.title}</td>
+        <td>${film.director}</td>
+        <td>${film.description}</td>
+        <td><a href class="delete">X</a></td>
+        `;
+    list.appendChild(row);
   }
-};
-//Show alert
-UI.prototype.showAlert = function (message, className) {
-  //Create  div
-  const div = document.createElement("div");
-  //Add classes
-  div.className = `alert mb-2 ${className}`;
-  //Add text
-  div.appendChild(document.createTextNode(message));
-  //Get parent
-  const container = document.querySelector(".container");
-  //Get form
-  const form = document.querySelector("#film-form");
-  //Insert alert
-  container.insertBefore(div, form);
 
-  //Timeout to alert disappear
-  setTimeout(function () {
-    document.querySelector(".alert").remove();
-  }, 3456);
-};
+  showAlert(message, className) {
+    //Create  div
+    const div = document.createElement("div");
+    //Add classes
+    div.className = `alert mb-2 ${className}`;
+    //Add text
+    div.appendChild(document.createTextNode(message));
+    //Get parent
+    const container = document.querySelector(".container");
+    //Get form
+    const form = document.querySelector("#film-form");
+    //Insert alert
+    container.insertBefore(div, form);
 
-//Clear fields
-UI.prototype.clearFields = function () {
-  title.value = "";
-  director.value = "";
-  description.value = "";
-  [title, director, description].forEach(function (singleInput) {
-    singleInput.parentNode.children[1].style.display = "block";
-  });
-};
+    //Timeout to alert disappear
+    setTimeout(function () {
+      document.querySelector(".alert").remove();
+    }, 3456);
+  }
+
+  deleteFilm(target) {
+    if (target.className === "delete") {
+      target.parentElement.parentElement.remove();
+    }
+  }
+  clearFields() {
+    title.value = "";
+    director.value = "";
+    description.value = "";
+    [title, director, description].forEach(function (singleInput) {
+      singleInput.parentNode.children[1].style.display = "block";
+    });
+  }
+}
 
 //Event Listeners
 const title = document.getElementById("title");
